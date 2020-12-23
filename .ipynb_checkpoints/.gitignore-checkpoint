@@ -1,6 +1,9 @@
-
-# Prerequisites
+quisites
+.vscode
+.ipynb_checkpoints
 *.d
+*.pyc
+/hw5_data
 
 # Compiled Object files
 *.slo
