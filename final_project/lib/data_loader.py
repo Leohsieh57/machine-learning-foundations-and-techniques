@@ -34,7 +34,7 @@ class HotelReservationData(Dataset):
         data = self.data[i]
         adr = self.adr[i]
         rev = self.rev[i]
-        return data, adr, rev
+        return data, float(adr), int(rev)
     
     def __len__(self):
         return self.len

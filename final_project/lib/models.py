@@ -29,10 +29,10 @@ class Classifier(nn.Module):
             nn.Linear(input_size, 180),
             nn.Dropout(0.5),
             nn.ReLU(),
-            nn.Linear(input_size, 100),
+            nn.Linear(180, 100),
             nn.Dropout(0.5),
             nn.ReLU(),
-            nn.Linear(100, 2)
+            nn.Linear(100, 6)
         )
 
     def forward(self, x):

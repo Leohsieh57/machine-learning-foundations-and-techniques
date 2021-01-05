@@ -17,11 +17,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import random
 
-def saveModel(checkpoint_path, model, optimizer):
+def saveModel(checkpoint_path, model, optimizer, log=True):
     state = {'state_dict': model.state_dict(),
              'optimizer' : optimizer.state_dict()}
     torch.save(state, checkpoint_path)
-    print('model saved to %s' % checkpoint_path)
+    if log:
+        print('model saved to %s' % checkpoint_path)
     
 def loadModel(checkpoint_path, model, optimizer, log=True):
     state = torch.load(checkpoint_path)
