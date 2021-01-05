@@ -20,8 +20,31 @@ import csv
 import multiprocessing as mp
 import copy
 import threading
+import random
 
 final_dict, train_dict, test_dict = None, None, None
+
+def SplitIndices(tensor, PopedIdxList):
+    dict_poped = {}
+    for idx in PopedIdxList:
+        dict_poped[idx] = True
+    PopedTensors, RemainingTensors = [], []
+    for idx, subtensor in enumerate(tensor):
+        subtensor = subtensor.view(1, -1)
+        if dict_poped.get(idx):
+            PopedTensors.append(subtensor)
+        else:
+            RemainingTensors.append(subtensor)
+    return torch.cat(PopedTensors, dim=0), torch.cat(RemainingTensors, dim=0)
+
+def RandomSplit(data, label1, label2, num):
+    assert(num < len(data))
+    assert(len(data) == len(label1) and len(data) == len(label2))
+    PopedIdxList = random.sample(range(len(data)), 10000)
+    data_pop, data_rem = SplitIndices(data, PopedIdxList)
+    lab1_pop, lab1_rem = SplitIndices(label1, PopedIdxList)
+    lab2_pop, lab2_rem = SplitIndices(label2, PopedIdxList)
+    return data_pop, data_rem, lab1_pop, lab1_rem, lab2_pop, lab2_rem
 
 def read_file(fn):
     with open(fn, mode='r') as test:
