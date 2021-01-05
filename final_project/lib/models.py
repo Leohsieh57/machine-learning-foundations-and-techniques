@@ -25,17 +25,16 @@ import random
 class Classifier(nn.Module):
     def __init__(self, input_size = 258):
         super(Classifier, self).__init__()
-        self.fc = nn.Sequential(
-            nn.Linear(input_size, 180),
+        self.lstm = nn.LSTM(258, 100, 1)
+        self.fc =  nn.Sequential(
             nn.Dropout(0.5),
-            nn.ReLU(),
-            nn.Linear(180, 100),
-            nn.Dropout(0.5),
-            nn.ReLU(),
-            nn.Linear(100, 6)
-        )
+            nn.Linear(100, 1),
+            nn.Sigmoid())
 
     def forward(self, x):
+        x = x.view(-1, 1, 258)
+        x, _ = self.lstm(x, None)
+        x = x.view(-1, 100)
         return self.fc(x)
     
 class ClassifierLinear(nn.Module):
@@ -47,4 +46,4 @@ class ClassifierLinear(nn.Module):
 
     def forward(self, x):
         return self.fc(x)
-
+    

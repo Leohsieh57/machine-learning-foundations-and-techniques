@@ -40,7 +40,7 @@ def SplitIndices(tensor, PopedIdxList):
 def RandomSplit(data, label1, label2, num):
     assert(num < len(data))
     assert(len(data) == len(label1) and len(data) == len(label2))
-    PopedIdxList = random.sample(range(len(data)), 10000)
+    PopedIdxList = sorted(random.sample(range(len(data)), 10000))
     data_pop, data_rem = SplitIndices(data, PopedIdxList)
     lab1_pop, lab1_rem = SplitIndices(label1, PopedIdxList)
     lab2_pop, lab2_rem = SplitIndices(label2, PopedIdxList)
