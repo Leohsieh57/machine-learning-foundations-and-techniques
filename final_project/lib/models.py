@@ -37,3 +37,12 @@ class Classifier(nn.Module):
 
     def forward(self, x):
         return self.fc(x)
+    
+class ClassifierLinear(nn.Module):
+    def __init__(self, input_size = 258):
+        super(ClassifierLinear, self).__init__()
+        self.fc = nn.Linear(input_size, 6)
+
+    def forward(self, x):
+        return self.fc(x)
+
