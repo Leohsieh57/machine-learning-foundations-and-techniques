@@ -25,7 +25,7 @@ class HotelReservationData(Dataset):
         self.root = root
         self.data = torch.load(os.path.join(self.root, 'data.pt'))
         self.adr = torch.load(os.path.join(self.root, 'adr.pt'))
-        self.rev = torch.load(os.path.join(self.root, 'rev.pt'), dtype=torch.int32)
+        self.rev = torch.load(os.path.join(self.root, 'rev.pt'))
         assert(len(self.adr) == len(self.rev))
         assert(len(self.adr) == len(self.data))
         self.len = len(self.adr)
