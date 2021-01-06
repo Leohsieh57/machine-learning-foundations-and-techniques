@@ -24,11 +24,18 @@ def GetValidationVectors(root):
     val_x = torch.load(os.path.join(root, 'test_data_tensor.pt')).numpy()
     return val_x
 
-def LoadDataNumpy(root):
+def LoadDataRev(root):
     train_x = torch.load(os.path.join(root, 'train/data.pt')).numpy()
     train_y = torch.load(os.path.join(root, 'train/rev.pt')).numpy().reshape(-1,)
     test_x = torch.load(os.path.join(root, 'test/data.pt')).numpy()
     test_y = torch.load(os.path.join(root, 'test/rev.pt')).numpy().reshape(-1,)
+    return train_x, train_y, test_x, test_y
+
+def LoadDataAdr(root):
+    train_x = torch.load(os.path.join(root, 'train/data.pt')).numpy()
+    train_y = torch.load(os.path.join(root, 'train/adr.pt')).numpy().reshape(-1,)
+    test_x = torch.load(os.path.join(root, 'test/data.pt')).numpy()
+    test_y = torch.load(os.path.join(root, 'test/adr.pt')).numpy().reshape(-1,)
     return train_x, train_y, test_x, test_y
     
 class HotelReservationData(Dataset):
