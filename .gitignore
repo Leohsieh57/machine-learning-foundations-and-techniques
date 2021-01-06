@@ -2,9 +2,6 @@
 .ipynb_checkpoints
 *.d
 *.pyc
-*.pt
-*.csv
-/data
 
 # Compiled Object files
 *.slo
