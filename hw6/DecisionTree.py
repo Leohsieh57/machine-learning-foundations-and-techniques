@@ -50,20 +50,15 @@ class DecisionTree:
     def Predict(self, data):
         PredictionList = []
         for feat, _ in data.GetItemFull():
-            OutcomeList = []
+            Prediction = 1
             for idx in self.PriorityList:
                 model = self.ModelList[idx]
-                x = feat[idx]
-                OutcomeList.append(model.Predict(x))
-
-            OutcomeString = OutcomeListToLabel(OutcomeList)+'_'
-            for depth in range(self.depth):
-                key = OutcomeString[:-(depth+1)]
-                Prediction = self.BinaryDict.get(key)
-                if Prediction != None:
-                    PredictionList.append(Prediction)
+                if model.Predict(feat[idx]) < 0:
+                    Prediction = -1
                     break
-            
+
+            PredictionList.append(Prediction)
+        print(len(PredictionList))
         return PredictionList
     
 def OutcomeListToLabel(OutcomeList):

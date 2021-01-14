@@ -26,9 +26,9 @@ if __name__ == '__main__':
     # construct decision tree
     Tree = DecisionTree(train, ModelList)
     Tree.SetPriority(PriorityList)
-    Tree.ConstructTree()
+    #Tree.ConstructTree()
     # predict
-    PredictList = Tree.Predict(test)
-    LabelList = test.GetLabels()
+    PredictList = Tree.Predict(train)
+    LabelList = train.GetLabels()
     Eout = func.Eout(PredictList, LabelList)
     print('Ans: Eout =', Eout)
