@@ -3,6 +3,7 @@ import multiprocessing as mp
 from DataSet import DataSet 
 from DecisionStumpModel import DecisionStumpModel
 from DecisionTree import DecisionTree
+import Functions as func
 
 def mpEinModel(model):
     Ein = model.GetOptParams()
@@ -28,4 +29,6 @@ if __name__ == '__main__':
     Tree.ConstructTree()
     # predict
     PredictList = Tree.Predict(test)
-    print(PredictList)
+    LabelList = test.GetLabels()
+    Eout = func.Eout(PredictList, LabelList)
+    print('Ans: Eout =', Eout)

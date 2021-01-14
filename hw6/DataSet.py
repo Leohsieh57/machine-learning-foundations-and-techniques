@@ -7,7 +7,10 @@ class DataSet:
         self.data = np.array(data)
         self.DataCnt = self.data.shape[0]
         self.FeatCnt = self.data.shape[1]-1
-        
+
+    def GetLabels(self):
+        return self.data[:,-1]
+
     def GetItem(self, idx):
         assert idx < self.DataCnt
         label = self.data[idx][-1]
