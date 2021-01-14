@@ -26,4 +26,6 @@ if __name__ == '__main__':
     Tree = DecisionTree(train, ModelList)
     Tree.SetPriority(PriorityList)
     Tree.ConstructTree()
-    print('a')
+    # predict
+    PredictList = Tree.Predict(test)
+    print(PredictList)

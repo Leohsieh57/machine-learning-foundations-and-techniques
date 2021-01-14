@@ -32,7 +32,20 @@ class DecisionTree:
         for key in self.BinaryDict:
             self.BinaryDict[key] = sign(sum(self.BinaryDict[key]))
 
-        print(self.BinaryDict)
+    def Predict(self, data):
+        PredictionList = []
+        for feat, _ in data.GetItemFull():
+            OutcomeList = []
+            for idx in self.PriorityList:
+                model = self.ModelList[idx]
+                x = feat[idx]
+                OutcomeList.append(model.Predict(x))
+
+            OutcomeString = OutcomeListToLabel(OutcomeList)
+            Prediction = self.BinaryDict.get(OutcomeString)
+            Prediction = Prediction if Prediction else -1
+            PredictionList.append(Prediction)
+        return PredictionList
     
 
 def OutcomeListToLabel(OutcomeList):
