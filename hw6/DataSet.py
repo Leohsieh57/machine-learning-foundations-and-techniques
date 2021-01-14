@@ -9,13 +9,16 @@ class DataSet:
         self.FeatCnt = self.data.shape[1]-1
         
     def GetItem(self, idx):
-        assert(idx < self.DataCnt)
+        assert idx < self.DataCnt
         label = self.data[idx][-1]
         feat = self.data[idx][:-1]
         return feat, label
+
+    def GetItemFull(self):
+        return [self.GetItem(idx) for idx in range(self.DataCnt)]
     
     def GetFeat(self, idx): #ith feat
-        assert(idx < self.FeatCnt)
+        assert idx < self.FeatCnt 
         FeatList = self.data[:,idx]
         LabelList = self.data[:,-1]
         return FeatList, LabelList

@@ -1,27 +1,43 @@
 import numpy as np
 from DataSet import DataSet 
+from DecisionStumpModel import sign
 
 class DecisionTree:
-    def __init__(self, data):
+    def __init__(self, data, ModelList):
         self.data = data
-        self.DataCnt = self.data.shape[0]
-        self.FeatCnt = self.data.shape[1]-1
-        
-    def GetItem(self, idx):
-        assert(idx < self.DataCnt)
-        label = self.data[idx][-1]
-        feat = self.data[idx][:-1]
-        return feat, label
-    
-    def GetFeat(self, idx): #ith feat
-        assert(idx < self.FeatCnt)
-        FeatList = self.data[:,idx]
-        LabelList = self.data[:,-1]
-        return FeatList, LabelList
-    
-    def GetFeatFull(self):
-        return [self.GetFeat(idx) for idx in range(self.FeatCnt)]
+        self.depth = len(ModelList)
+        self.ModelList = ModelList
+        self.BinaryDict = {}
+        self.PriorityList = None
 
-class BinaryTree:
-    def __init__(self, parent):
-        self.data = data
+    def SetPriority(self, PriorityList):
+        assert len(PriorityList) == self.depth
+        self.PriorityList = PriorityList
+
+    def ConstructTree(self):
+        assert self.PriorityList
+        for feat, label in self.data.GetItemFull():
+            OutcomeList = []
+            for idx in self.PriorityList:
+                model = self.ModelList[idx]
+                x = feat[idx]
+                OutcomeList.append(model.Predict(x))
+
+            OutcomeString = OutcomeListToLabel(OutcomeList)
+            if not self.BinaryDict.get(OutcomeString):
+                self.BinaryDict[OutcomeString] = []
+
+            self.BinaryDict[OutcomeString].append(label)
+           
+        for key in self.BinaryDict:
+            self.BinaryDict[key] = sign(sum(self.BinaryDict[key]))
+
+        print(self.BinaryDict)
+    
+
+def OutcomeListToLabel(OutcomeList):
+    OutputString = ''
+    for outcome in OutcomeList:
+        OutputString += '1' if outcome == 1 else '0'
+
+    return OutputString
