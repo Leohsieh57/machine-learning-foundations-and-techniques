@@ -12,4 +12,5 @@ if __name__ == '__main__':
     # question14
     ModelList = [DecisionStumpModel(feat, label) for feat, label in train.GetFeatFull()]
     pool = mp.Pool(mp.cpu_count())
-    print(pool.map(mpEin, ModelList))
+    EinList = pool.map(mpEin, ModelList)
+    print(EinList)

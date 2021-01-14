@@ -1,10 +1,9 @@
 import numpy as np
+from DataSet import DataSet 
 
-class DataSet:
-    def __init__(self, fn):
-        file = open(fn)
-        data = [[float(mem) for mem in line[:-2].split(' ')] for line in file]
-        self.data = np.array(data)
+class DecisionTree:
+    def __init__(self, data):
+        self.data = data
         self.DataCnt = self.data.shape[0]
         self.FeatCnt = self.data.shape[1]-1
         
@@ -22,3 +21,7 @@ class DataSet:
     
     def GetFeatFull(self):
         return [self.GetFeat(idx) for idx in range(self.FeatCnt)]
+
+class BinaryTree:
+    def __init__(self, parent):
+        self.data = data
