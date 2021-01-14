@@ -3,12 +3,13 @@ import multiprocessing as mp
 from DataSet import DataSet 
 from DecisionStumpModel import DecisionStumpModel
 
-def f(x):
-    return x**2
+def mpEin(model):
+    return model.GetOptParams()
 
 if __name__ == '__main__':
     train, test = DataSet('test.dat'), DataSet('train.dat')
-    pool = mp.Pool(5)
-    rel  = pool.map(f,[1,2,3,4,5,6,7,8,9,10])
 
-    print(rel)
+    # question14
+    ModelList = [DecisionStumpModel(feat, label) for feat, label in train.GetFeatFull()]
+    pool = mp.Pool(mp.cpu_count())
+    print(pool.map(mpEin, ModelList))
